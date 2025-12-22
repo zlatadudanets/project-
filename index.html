@@ -626,6 +626,38 @@
         input, textarea, select {
             font-size: 16px !important;
         }
+        
+        /* Стили для полей формы */
+        .form-field {
+            margin-bottom: 20px;
+        }
+        
+        .form-field label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #5A5A5A;
+        }
+        
+        .form-field input,
+        .form-field select,
+        .form-field textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .form-field input:focus,
+        .form-field select:focus,
+        .form-field textarea:focus {
+            border-color: #FF8FAB;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 143, 171, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -743,7 +775,7 @@
                         <h3>Розовая нежность</h3>
                         <p>Розы, пионы, эустома в пастельных тонах</p>
                         <div class="price">3 900 ₽</div>
-                        <button class="btn order-btn" style="width: 100%;">
+                        <button class="btn order-btn" style="width: 100%;" data-bouquet="Розовая нежность">
                             <i class="fas fa-cart-plus"></i> Заказать
                         </button>
                     </div>
@@ -759,7 +791,7 @@
                         <h3>Сиреневый рассвет</h3>
                         <p>Орхидеи, лаванда, ирисы и эустома</p>
                         <div class="price">4 500 ₽</div>
-                        <button class="btn order-btn" style="width: 100%;">
+                        <button class="btn order-btn" style="width: 100%;" data-bouquet="Сиреневый рассвет">
                             <i class="fas fa-cart-plus"></i> Заказать
                         </button>
                     </div>
@@ -775,7 +807,7 @@
                         <h3>Солнечное настроение</h3>
                         <p>Герберы, тюльпаны и гипсофила</p>
                         <div class="price">2 900 ₽</div>
-                        <button class="btn order-btn" style="width: 100%;">
+                        <button class="btn order-btn" style="width: 100%;" data-bouquet="Солнечное настроение">
                             <i class="fas fa-cart-plus"></i> Заказать
                         </button>
                     </div>
@@ -791,7 +823,7 @@
                         <h3>Голубая мечта</h3>
                         <p>Гортензии, дельфиниумы, васильки и ромашки</p>
                         <div class="price">3 700 ₽</div>
-                        <button class="btn order-btn" style="width: 100%;">
+                        <button class="btn order-btn" style="width: 100%;" data-bouquet="Голубая мечта">
                             <i class="fas fa-cart-plus"></i> Заказать
                         </button>
                     </div>
@@ -851,30 +883,36 @@
             <button class="close-btn" id="closeModalBtn">&times;</button>
             <h2 style="color: #7A5C7A; margin-bottom: 20px;">Заказать букет</h2>
             
-            <form id="orderForm">
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Ваше имя</label>
-                    <input type="text" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;" required>
+            <!-- ФОРМА С ВАШИМ ENDPOINT URL -->
+            <form id="orderForm" action="https://formcarry.com/s/-RR3nvd9tly" method="POST">
+                <div class="form-field">
+                    <label for="name">Ваше имя *</label>
+                    <input type="text" id="name" name="name" required placeholder="Введите ваше имя">
                 </div>
                 
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Телефон</label>
-                    <input type="tel" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;" required>
+                <div class="form-field">
+                    <label for="phone">Телефон *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+7 (999) 123-45-67">
                 </div>
                 
-                <div style="margin-bottom: 15px;">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Выберите букет</label>
-                    <select style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
-                        <option>Розовая нежность - 3 900 ₽</option>
-                        <option>Сиреневый рассвет - 4 500 ₽</option>
-                        <option>Солнечное настроение - 2 900 ₽</option>
-                        <option>Голубая мечта - 3 700 ₽</option>
+                <div class="form-field">
+                    <label for="email">Электронная почта *</label>
+                    <input type="email" id="email" name="email" required placeholder="example@mail.ru">
+                </div>
+                
+                <div class="form-field">
+                    <label for="bouquet">Выберите букет *</label>
+                    <select id="bouquet" name="bouquet" required>
+                        <option value="Розовая нежность - 3 900 ₽">Розовая нежность - 3 900 ₽</option>
+                        <option value="Сиреневый рассвет - 4 500 ₽">Сиреневый рассвет - 4 500 ₽</option>
+                        <option value="Солнечное настроение - 2 900 ₽">Солнечное настроение - 2 900 ₽</option>
+                        <option value="Голубая мечта - 3 700 ₽">Голубая мечта - 3 700 ₽</option>
                     </select>
                 </div>
                 
-                <div style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 5px; font-weight: 500;">Комментарий к заказу</label>
-                    <textarea style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; height: 100px; font-size: 16px;"></textarea>
+                <div class="form-field">
+                    <label for="comment">Комментарий к заказу</label>
+                    <textarea id="comment" name="comment" rows="4" placeholder="Ваши пожелания, адрес доставки, время и т.д."></textarea>
                 </div>
                 
                 <button type="submit" class="btn" style="width: 100%;">
@@ -930,6 +968,22 @@
             openOrderBtns.forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
+                    
+                    // Если нажата кнопка из карточки букета
+                    if (this.classList.contains('order-btn')) {
+                        const selectedBouquet = this.getAttribute('data-bouquet');
+                        if (selectedBouquet) {
+                            const bouquetSelect = document.getElementById('bouquet');
+                            // Устанавливаем выбранный букет
+                            for (let i = 0; i < bouquetSelect.options.length; i++) {
+                                if (bouquetSelect.options[i].text.includes(selectedBouquet)) {
+                                    bouquetSelect.selectedIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    
                     orderModal.style.display = 'flex';
                     document.body.style.overflow = 'hidden';
                 });
@@ -954,11 +1008,17 @@
             // Обработка формы
             if (orderForm) {
                 orderForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
+                    // Убираем preventDefault чтобы форма отправлялась на FormCarry
+                    // e.preventDefault(); // ЗАКОММЕНТИРОВАНО ДЛЯ ОТПРАВКИ НА FORMCARRY
+                    
+                    // Показываем сообщение пользователю
                     alert('Спасибо за заказ! Мы свяжемся с вами в течение 15 минут.');
-                    orderModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    orderForm.reset();
+                    
+                    // Закрываем модальное окно
+                    setTimeout(() => {
+                        orderModal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 100);
                 });
             }
             
@@ -968,8 +1028,7 @@
                     e.preventDefault();
                     
                     const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
+                    if (targetId === '#') return                    
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         window.scrollTo({
@@ -1015,6 +1074,61 @@
                     window.scrollTo(0, 0);
                     document.body.scrollTop = 0;
                 });
+            });
+            
+            // Валидация телефона
+            const phoneInput = document.getElementById('phone');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    
+                    if (value.length > 0) {
+                        value = '+7' + value.substring(1);
+                    }
+                    
+                    // Форматирование телефона
+                    if (value.length > 2) {
+                        value = value.substring(0, 2) + ' ' + value.substring(2);
+                    }
+                    if (value.length > 6) {
+                        value = value.substring(0, 6) + ' ' + value.substring(6);
+                    }
+                    if (value.length > 10) {
+                        value = value.substring(0, 10) + ' ' + value.substring(10);
+                    }
+                    if (value.length > 13) {
+                        value = value.substring(0, 13) + ' ' + value.substring(13);
+                    }
+                    if (value.length > 16) {
+                        value = value.substring(0, 16);
+                    }
+                    
+                    e.target.value = value;
+                });
+            }
+            
+            // Валидация email
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.addEventListener('blur', function() {
+                    const email = this.value;
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    if (email && !emailPattern.test(email)) {
+                        this.style.borderColor = 'red';
+                        alert('Пожалуйста, введите корректный email адрес');
+                    } else {
+                        this.style.borderColor = '#ddd';
+                    }
+                });
+            }
+            
+            // Добавление атрибута name к полям формы если его нет
+            const formInputs = orderForm.querySelectorAll('input, select, textarea');
+            formInputs.forEach(input => {
+                if (!input.hasAttribute('name')) {
+                    input.setAttribute('name', input.id || input.type);
+                }
             });
         });
     </script>
